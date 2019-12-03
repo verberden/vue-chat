@@ -3,9 +3,6 @@ html
   head
     meta(name="viewport", content="width=device-width, initil-scale=1.0")
     title= title
-    link(rel='stylesheet', href='/css/vendors/bootstrap.min.css')
-    link(rel='stylesheet', href='/css/vendors/vue-quick-chat.css')
-    link(rel='stylesheet', href='/css/style.css')
   body
     .container
       nav.navbar.navbar-expand-lg.navbar-light.bg-light
@@ -16,9 +13,7 @@ html
           ul.navbar-nav
             li.nav-item
               a.nav-link(href="#") Здесь могла быть ваша реклама
-    
-      #app
-        block content
+      block content
       footer  
         .row
           .col-xs-12
