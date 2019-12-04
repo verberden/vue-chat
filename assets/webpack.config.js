@@ -37,6 +37,11 @@ module.exports = {
     concatenateModules: true,
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+    }),
     new VueLoaderPlugin()
   ],
   entry: './src/js/app.js',

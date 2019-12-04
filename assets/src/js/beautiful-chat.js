@@ -8,6 +8,11 @@ const bc = new Vue({
   components: {
     'beauty-chat': app
   },
+  methods: {
+    send(obj) {
+      this.$children[0]['sendMessage'](obj);
+    }
+  },
   created: function () {
     // `this` points to the vm instance
     console.log(this)
@@ -20,4 +25,4 @@ const bc = new Vue({
   }
 });
 
-export { bc }
+export default bc

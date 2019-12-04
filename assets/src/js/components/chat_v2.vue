@@ -1,17 +1,20 @@
 <template>
   <div>
     <beautiful-chat
+      ref="beautiful-chat"
       :participants="participants"
       :titleImageUrl="titleImageUrl"
       :onMessageWasSent="onMessageWasSent"
+      :sendMessage="sendMessage"
       :messageList="messageList"
       :newMessagesCount="newMessagesCount"
       :isOpen="isChatOpen"
       :close="closeChat"
       :icons="icons"
       :open="openChat"
-      :showEmoji="true"
-      :showFile="true"
+      :showEmoji="false"
+      :showFile="false"
+      :disableUserListToggle="true"
       :showTypingIndicator="showTypingIndicator"
       :colors="colors"
       :alwaysScrollToBottom="alwaysScrollToBottom"
@@ -24,7 +27,6 @@
 <script>
 import CloseIcon from 'vue-beautiful-chat/src/assets/close-icon.png'
 import OpenIcon from 'vue-beautiful-chat/src/assets/logo-no-bg.svg'
-import FileIcon from 'vue-beautiful-chat/src/assets/file.svg'
 import CloseIconSvg from 'vue-beautiful-chat/src/assets/close.svg'
  
 export default {
@@ -38,10 +40,6 @@ export default {
         },
         close:{
           img: CloseIcon,
-          name: 'default',
-        },
-        file:{
-          img: FileIcon,
           name: 'default',
         },
         closeSvg:{
@@ -98,15 +96,16 @@ export default {
     }
   },
   methods: {
-    sendMessage (text) {
+    sendMessage ({ text, author, type}) {
       if (text.length > 0) {
         this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
-        this.onMessageWasSent({ author: 'support', type: 'text', data: { text } })
+        this.onMessageWasSent({ author, type, data: { text } })
       }
     },
     onMessageWasSent (message) {
       // called when the user sends a message
       this.messageList = [ ...this.messageList, message ]
+      console.log(message);
     },
     openChat () {
       // called when the user clicks on the fab button to open the chat
