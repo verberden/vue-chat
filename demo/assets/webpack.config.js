@@ -1,7 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
@@ -15,27 +15,29 @@ module.exports = {
         parallel: true,
         sourceMap: true,
         extractComments: true,
-      })
+      }),
+      new OptimizeCSSAssetsPlugin({}),
     ],
+    noEmitOnErrors: true,
+    concatenateModules: true,
   },
   plugins: [
-    new VueLoaderPlugin()
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+    }),
   ],
   entry: './src/js/app.js',
   output: {
-    path: path.resolve(__dirname, './dist/js/'),
-    filename: 'vue-chat.js',
-    library: 'vue-chat',
-    libraryTarget: 'umd'
+    path: path.resolve(__dirname, '../public/js/'),
+    filename: 'app.min.js'
   },
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
-          {
-            loader: 'vue-style-loader'
-          },
           {
             loader: 'css-loader',
           }
@@ -44,24 +46,13 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'vue-style-loader',
           'css-loader',
           'sass-loader'
         ]
       },
       {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          preserveWhitespace: false,
-          loaders: {
-          }
-          // other vue-loader options go here
-        }
-      },
-      {
         test: /\.m?js$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /dist/],
         use: {
           loader: 'babel-loader',
         }
@@ -76,12 +67,6 @@ module.exports = {
         },
       }
     ]
-  },
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    },
-    extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
     historyApiFallback: true,

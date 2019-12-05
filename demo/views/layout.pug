@@ -1,0 +1,24 @@
+doctype 5
+html
+  head
+    meta(name="viewport", content="width=device-width, initil-scale=1.0")
+    link(rel='stylesheet', href='/css/vendors/bootstrap.min.css')
+    title= title
+  body
+    .container
+      nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        a.navbar-brand(href="/") Тест
+        button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+          span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarNav
+          ul.navbar-nav
+            li.nav-item
+              a.nav-link(href="#") Здесь могла быть ваша реклама
+      block content
+      footer  
+        .row
+          .col-xs-12
+            small &copy; SN 2019
+    script(src='/js/vendors/jquery.min.js')
+    script(src='/js/vendors/bootstrap.min.js')
+    script(src='/js/app.min.js')
