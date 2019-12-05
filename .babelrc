@@ -1,8 +1,11 @@
 {
-  "presets": ["es2015"],
-  "plugins": ["transform-runtime", "transform-object-rest-spread"],
-  "ignore": [
-    "./node_modules"
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "> 0.25%, not dead"
+      }
+    ]
   ],
-  "sourceType": "module"
+  "plugins": ["@babel/plugin-transform-runtime"]
 }

@@ -7,34 +7,12 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   target: 'web',
-  optimization: {
-    minimize: false
-  },
-  /* optimization: {
-    namedModules: true,
-    minimizer: [
-      new TerserPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true,
-        extractComments: true,
-      }), 
-      new OptimizeCSSAssetsPlugin({}),
-    ],
-    noEmitOnErrors: true,
-    concatenateModules: true,
-  },*/
   plugins: [
-    /* new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-    }), */
     new VueLoaderPlugin()
   ],
   entry: './src/js/app.js',
   output: {
-    path: path.resolve(__dirname, '../public/js/'),
+    path: path.resolve(__dirname, './dist/js/'),
     filename: 'vue-chat.js'
   },
   module: {
