@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import bus from './bus'
 import CloseIcon from 'vue-beautiful-chat/src/assets/close-icon.png'
 import OpenIcon from 'vue-beautiful-chat/src/assets/logo-no-bg.svg'
 import CloseIconSvg from 'vue-beautiful-chat/src/assets/close.svg'
@@ -128,6 +129,10 @@ export default {
       m.isEdited = true;
       m.data.text = message.data.text;
     }
-  }
+  },
+  created () {
+    // `this` points to the vm instance
+    bus.$on('sendMessage', this.sendMessage)
+  },
 }
 </script>

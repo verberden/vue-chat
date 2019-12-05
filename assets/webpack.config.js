@@ -1,10 +1,11 @@
 var path = require('path');
 var webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
+  mode: process.env.NODE_ENV || 'development',
   target: 'web',
   optimization: {
     minimize: true
@@ -12,24 +13,11 @@ module.exports = {
   optimization: {
     namedModules: true,
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
         cache: true,
         parallel: true,
         sourceMap: true,
-        minify(file, sourceMap) {
-          // https://github.com/mishoo/UglifyJS2#minify-options
-          const uglifyJsOptions = {
-            /* your `uglify-js` package options */
-          };
-
-          if (sourceMap) {
-            uglifyJsOptions.sourceMap = {
-              content: sourceMap,
-            };
-          }
-
-          return require('terser').minify(file, uglifyJsOptions);
-        },
+        extractComments: true,
       }),
       new OptimizeCSSAssetsPlugin({}),
     ],
@@ -74,6 +62,7 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
+          preserveWhitespace: false,
           loaders: {
           }
           // other vue-loader options go here
@@ -81,12 +70,9 @@ module.exports = {
       },
       {
         test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
         }
       },
       {
