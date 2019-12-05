@@ -8,9 +8,9 @@ module.exports = {
   mode: process.env.NODE_ENV || 'development',
   target: 'web',
   optimization: {
-    minimize: true
+    minimize: false
   },
-  optimization: {
+  /* optimization: {
     namedModules: true,
     minimizer: [
       new TerserPlugin({
@@ -18,24 +18,24 @@ module.exports = {
         parallel: true,
         sourceMap: true,
         extractComments: true,
-      }),
+      }), 
       new OptimizeCSSAssetsPlugin({}),
     ],
     noEmitOnErrors: true,
     concatenateModules: true,
-  },
+  },*/
   plugins: [
-    new webpack.ProvidePlugin({
+    /* new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
-    }),
+    }), */
     new VueLoaderPlugin()
   ],
   entry: './src/js/app.js',
   output: {
     path: path.resolve(__dirname, '../public/js/'),
-    filename: 'app.min.js'
+    filename: 'vue-chat.js'
   },
   module: {
     rules: [
@@ -113,7 +113,7 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
     new webpack.LoaderOptionsPlugin({
-      minimize: true
+      minimize: false
     })
   ])
 }
