@@ -2,7 +2,7 @@
   "name": "vue-chat",
   "version": "1.0.0",
   "description": "",
-  "main": "public/js/app.min.js",
+  "main": "public/js/vue-chat.js",
   "scripts": {
     "start": "nodemon --inspect ./bin/www",
     "dev": "nodemon ./bin/www",
